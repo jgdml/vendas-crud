@@ -1,12 +1,16 @@
 import mysql from "mysql2/promise";
 
-export const connection = await mysql
-  .createConnection({
+export default async function GetConnection() {
+  return await mysql.createPool({
     host: "localhost",
     user: "root",
     database: "db",
-  })
-  .then((c) => {
-    console.log("created connection")
-    return c;
+    waitForConnections: true,
+    connectionLimit: 10,
+    maxIdle: 10,
+    idleTimeout: 60000,
+    queueLimit: 0,
+    enableKeepAlive: true,
+    keepAliveInitialDelay: 0,
   });
+}

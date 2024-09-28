@@ -1,28 +1,44 @@
 import React from "react";
-import ProdutoDTO from "../persistence/dto/produto_dto";
 import ProdutoRepo from "../persistence/repo/produto_repo";
+import Card from "../components/Card";
 
 const Produtos = async () => {
   const produtoRepo = new ProdutoRepo();
   const produtos = await produtoRepo.findAll();
-
-  // produtoRepo.save()
-
-  // const p = new ProdutoDTO()
-  // p.id = 1
-  // p.nome = "ab"
-  // p.valor_venda = 1.90
-  // produtoRepo.saveOrUpdate(p)
-  // produtoRepo
   return (
-    <div>
-      <h1>Produtos</h1>
-      <ul>
-        {produtos.map((p, index) => (
-          <li key={index}>{p.nome}</li>
-        ))}
-      </ul>
-    </div>
+    <Card title="Produtos">
+      <div className="flex justify-end mb-2">
+        <a href="produtos/form" className="iconTextButton">
+          <i className="material-symbols-outlined">add</i>
+          Adicionar
+        </a>
+      </div>
+      <table className="displayTable">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Valor de Venda</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          {produtos.map((p, index) => (
+            <tr key={index}>
+              <td>{p.nome}</td>
+              <td>{p.valor_venda}</td>
+              <td>
+                <a href={"produtos/form?id=" + p.id} className="iconButton">
+                  <i className="material-symbols-outlined">edit</i>
+                </a>
+                <a href="" className="iconButton">
+                  <i className="material-symbols-outlined">delete</i>
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </Card>
   );
 };
 

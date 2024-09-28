@@ -1,7 +1,9 @@
-export default async function Home() {
+import Card from "./components/Card"
+
+export default function Home() {
   return (
-    <div>
-      <h1>Navegue pelo sistema com a Sidebar.</h1>
-    </div>
+    <Card title="Bem Vindo">
+      <h1>Navegue pelo sistema com o menu lateral.</h1>
+    </Card>
   );
 }

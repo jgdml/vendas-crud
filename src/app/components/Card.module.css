@@ -1,0 +1,23 @@
+.container {
+  min-width: 40%;
+}
+
+.title {
+  display: flex;
+  font-size: x-large;
+  justify-content: center;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+
+  color: white;
+  background-color: var(--accent);
+  padding: 7px;
+}
+
+.content {
+  background-color: white;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  padding: 25px;
+}
