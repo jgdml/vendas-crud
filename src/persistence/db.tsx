@@ -4,7 +4,7 @@ export default async function GetConnection() {
   return await mysql.createPool({
     host: "localhost",
     user: "root",
-    database: "db",
+    database: "desafio_venda_db",
     waitForConnections: true,
     connectionLimit: 10,
     maxIdle: 10,

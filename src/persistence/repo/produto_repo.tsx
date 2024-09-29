@@ -14,6 +14,16 @@ export default class ProdutoRepo {
       (item) => new ProdutoDTO(item.id, item.nome, item.valor_venda)
     );
   }
+  async findById(id: number) {
+    var connection = await GetConnection();
+    var [res] = await connection.execute<RowDataPacket[]>(
+      "SELECT * FROM `produto` WHERE id =?",
+      [id]
+    );
+    connection.end();
+
+    return new ProdutoDTO(res[0].id, res[0].nome, res[0].valor_venda);
+  }
 
   async saveOrUpdate(produto: ProdutoDTO) {
     var connection = await GetConnection();
