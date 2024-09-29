@@ -7,9 +7,9 @@ interface CardProps {
   children: any;
 }
 
-const Card: React.FC<CardProps> = (props) => {
+const Card = (props: CardProps) => {
   return (
-    <div className="w-full h-full flex justify-center">
+    <div className={styles.card}>
       <div className="flex items-center">
         <div className="shadow">
           <div className={styles.title}>

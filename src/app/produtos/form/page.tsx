@@ -4,11 +4,9 @@ import Card from "@/app/components/Card";
 import { useSearchParams } from "next/navigation";
 import { useFormState } from "react-dom";
 import { submitForm, getProd } from "./actions";
-import { useRouter } from "next/navigation";
 import IconTextButton from "@/app/components/IconTextButton";
 
 const ProdutoForm = () => {
-  const { push } = useRouter();
   const params = useSearchParams();
   const editId = params.get("id") ?? undefined;
   var [name, setName] = useState();
