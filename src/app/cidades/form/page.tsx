@@ -3,20 +3,20 @@ import React, { useEffect, useState } from "react";
 import Card from "@/app/components/Card";
 import { useSearchParams } from "next/navigation";
 import { useFormState } from "react-dom";
-import { submitForm, getProd } from "./actions";
+import { submitForm, getCidade } from "./actions";
 import IconTextButton from "@/app/components/IconTextButton";
 
-const ProdutoForm = () => {
+const CidadeForm = () => {
   const params = useSearchParams();
   const editId = params.get("id") ?? undefined;
   const [name, setName] = useState();
-  const [price, setPrice] = useState();
+  const [uf, setUf] = useState();
 
   if (editId) {
     useEffect(() => {
-      getProd(parseInt(editId)).then((prod) => {
-        setName(prod.nome);
-        setPrice(prod.valor_venda);
+      getCidade(parseInt(editId)).then((cid) => {
+        setName(cid.nome);
+        setUf(cid.uf);
       });
     }),
       [];
@@ -30,32 +30,30 @@ const ProdutoForm = () => {
   );
 
   return (
-    <Card title={(editId ? "Editar" : "Criar ") + " Produto"}>
+    <Card title={(editId ? "Editar" : "Criar ") + " Cidade"}>
       <form action={formAction} className="form">
         <div className="formBody">
           <div className="inputLabel">
-            <label htmlFor="nome">Nome do Produto</label>
+            <label htmlFor="nome">Nome da Cidade</label>
             <input
               name="nome"
               type="text"
-              maxLength={120}
               required
+              maxLength={40}
               defaultValue={name}
-              placeholder="Digite o nome do produto"
+              placeholder="Digite o nome da cidade"
             />
           </div>
 
           <div className="inputLabel">
-            <label htmlFor="preco">Valor de Venda</label>
+            <label htmlFor="uf">UF</label>
             <input
-              name="preco"
-              type="number"
-              min={0.01}
-              max={99999.99}
-              step=".01"
+              name="uf"
+              type="text"
               required
-              defaultValue={price}
-              placeholder="Digite o preço do produto"
+              defaultValue={uf}
+              placeholder="Digite a Unidade Federativa da cidade"
+              maxLength={2}
             />
           </div>
         </div>
@@ -66,4 +64,4 @@ const ProdutoForm = () => {
   );
 };
 
-export default ProdutoForm;
+export default CidadeForm;

@@ -16,8 +16,7 @@ const ActionTable = (props: ActionTableProps) => {
     <table className={styles.displayTable}>
       <thead>
         <tr>
-          <th>Nome</th>
-          <th>Valor de Venda</th>
+          {props.headers.map((h => <th>{h}</th>))}
           <th>Ações</th>
         </tr>
       </thead>

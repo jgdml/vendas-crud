@@ -1,44 +1,44 @@
 import GetConnection from "../db";
 import { RowDataPacket } from "mysql2/promise";
-import Produto from "../../model/produto";
+import Cidade from "../../model/cidade";
 
-export default class ProdutoRepo {
+export default class CidadeRepo {
   async findAll() {
     var connection = await GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
-      "SELECT * FROM `produto`"
+      "SELECT * FROM `cidade`"
     );
     connection.end();
 
     return res.map(
-      (item) => new Produto(item.id, item.nome, item.valor_venda)
+      (item) => new Cidade(item.id, item.nome, item.uf)
     );
   }
   async findById(id: number) {
     var connection = await GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
-      "SELECT * FROM `produto` WHERE id =?",
+      "SELECT * FROM `cidade` WHERE id =?",
       [id]
     );
     connection.end();
 
-    return new Produto(res[0].id, res[0].nome, res[0].valor_venda);
+    return new Cidade(res[0].id, res[0].nome, res[0].uf);
   }
 
-  async saveOrUpdate(produto: Produto) {
+  async saveOrUpdate(cidade: Cidade) {
     var connection = await GetConnection();
 
     var result;
-    if (produto.id == null) {
+    if (cidade.id == null) {
       result = await connection.execute(
-        "INSERT INTO produto (nome, valor_venda) VALUES (?, ?)",
-        [produto.nome, produto.valor_venda]
+        "INSERT INTO cidade (nome, uf) VALUES (?, ?)",
+        [cidade.nome, cidade.uf]
       );
     } else {
       console.log("update");
       result = await connection.execute(
-        "UPDATE produto SET nome=?, valor_venda=? WHERE id=?",
-        [produto.nome, produto.valor_venda, produto.id]
+        "UPDATE cidade SET nome=?, uf=? WHERE id=?",
+        [cidade.nome, cidade.uf, cidade.id]
       );
     }
     connection.end();
@@ -47,7 +47,7 @@ export default class ProdutoRepo {
 
   async delete(id: number) {
     var connection = await GetConnection();
-    await connection.execute("DELETE FROM produto WHERE id=?", [id]);
+    await connection.execute("DELETE FROM cidade WHERE id=?", [id]);
     connection.end();
   }
 }
