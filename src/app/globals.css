@@ -57,6 +57,12 @@ body {
   padding: 1%;
 }
 
+
 .inputLabel input:focus {
   border-color: var(--accent);
+}
+
+.inputLabel label {
+  font-weight: bold;
+  color: rgb(80, 80, 80);
 }

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@/app/components/Card";
 import { useSearchParams } from "next/navigation";
 import { useFormState } from "react-dom";
@@ -9,14 +9,17 @@ import IconTextButton from "@/app/components/IconTextButton";
 const ProdutoForm = () => {
   const params = useSearchParams();
   const editId = params.get("id") ?? undefined;
-  var [name, setName] = useState();
-  var [price, setPrice] = useState();
+  const [name, setName] = useState();
+  const [price, setPrice] = useState();
 
   if (editId) {
-    getProd(parseInt(editId)).then((prod) => {
-      setName(prod.nome);
-      setPrice(prod.valor_venda);
-    });
+    useEffect(() => {
+      getProd(parseInt(editId)).then((prod) => {
+        setName(prod.nome);
+        setPrice(prod.valor_venda);
+      });
+    }),
+      [];
   }
 
   const [state, formAction] = useFormState(
