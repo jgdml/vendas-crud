@@ -2,6 +2,7 @@
 
 import ProdutoDTO from "@/persistence/dto/produto_dto";
 import ProdutoRepo from "@/persistence/repo/produto_repo";
+import { redirect } from "next/navigation";
 
 export async function submitForm(
   previousState: any,
@@ -18,9 +19,11 @@ export async function submitForm(
     produto.valor_venda = data.get("preco") as unknown as number;
     const repo = new ProdutoRepo();
     await repo.saveOrUpdate(produto);
-  } catch {
-    return { error: "Ocorreu um erro." };
+    
+  } catch (e) {
+    return { error: "Ocorreu um erro. \n"+e };
   }
+  redirect("/produtos")
 
   return { error: null };
 }

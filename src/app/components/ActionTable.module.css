@@ -2,11 +2,11 @@
   min-width: 100%;
   border-bottom: solid var(--accent) 1px;
   border-radius: 5px;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: lightgray 0 0 10px;
 }
 
-.displayTable thead tr {
+.displayTable thead {
   text-align: left;
   background-color: var(--accent);
   color: white;
@@ -16,7 +16,9 @@
 .displayTable th,
 .displayTable td {
   padding: 3%;
+  border-bottom: solid lightgray 1px;
 }
+
 .displayTable tbody tr {
   transition-property: opacity;
   transition-duration: 0.25s;

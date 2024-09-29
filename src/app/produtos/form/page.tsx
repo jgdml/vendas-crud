@@ -30,18 +30,33 @@ const ProdutoForm = () => {
 
   return (
     <Card title={(editId ? "Editar" : "Criar ") + " Produto"}>
-      <form action={formAction}>
-        <label htmlFor="nome">Nome do Produto</label>
-        <input name="nome" type="text" required defaultValue={name} />
-        <label htmlFor="preco">Valor de Venda</label>
-        <input
-          name="preco"
-          type="number"
-          min={0.01}
-          step=".01"
-          required
-          defaultValue={price}
-        />
+      <form action={formAction} className="form">
+        <div className="formBody">
+          <div className="inputLabel">
+            <label htmlFor="nome">Nome do Produto</label>
+            <input
+              name="nome"
+              type="text"
+              required
+              defaultValue={name}
+              placeholder="Digite o nome do produto"
+            />
+          </div>
+
+          <div className="inputLabel">
+            <label htmlFor="preco">Valor de Venda</label>
+            <input
+              name="preco"
+              type="number"
+              min={0.01}
+              max={99999.99}
+              step=".01"
+              required
+              defaultValue={price}
+              placeholder="Digite o preço do produto"
+            />
+          </div>
+        </div>
         <IconTextButton isSubmit={true} text="Salvar" icon="save" />
       </form>
       <span>{state.error}</span>

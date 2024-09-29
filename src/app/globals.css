@@ -25,3 +25,38 @@ body {
   }
 }
 
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.formBody {
+  display: flex;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 5%;
+}
+
+.inputLabel {
+  display: flex;
+  flex-direction: column;
+  min-width: 30%;
+  flex: 1;
+}
+
+.inputLabel input {
+  -webkit-appearance: textfield;
+  outline: none;
+
+  padding: 5px;
+  border: solid lightgray 1px;
+  border-radius: 5px;
+  transition-duration: 0.25s;
+  transition-property: border-color;
+  padding: 1%;
+}
+
+.inputLabel input:focus {
+  border-color: var(--accent);
+}
