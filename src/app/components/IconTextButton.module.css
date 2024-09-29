@@ -1,0 +1,19 @@
+.iconTextButton {
+  display: flex;
+  align-self: flex-end;
+  justify-content: center;
+  width: 7em;
+  color: var(--accent);
+
+  border: var(--accent) solid 1px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px lightgray;
+  padding: 10px;
+  transition-duration: 0.25s;
+  transition-property: color background-color;
+}
+
+.iconTextButton:hover {
+  background-color: var(--accent);
+  color: white;
+}
