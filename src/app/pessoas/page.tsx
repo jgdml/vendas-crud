@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
-import { deleteById, getAll } from "./actions";
+import { deleteById, getAll, getAllBairros, getAllCidades } from "./actions";
 import ActionTable from "../components/ActionTable";
 import IconTextButton from "../components/IconTextButton";
 import { useSearchParams } from "next/navigation";
@@ -14,8 +14,19 @@ const Pessoas = () => {
   const cidade = params.get("cidade") ?? "";
   const bairro = params.get("bairro") ?? "";
 
+  const [cidades, setCidades] = useState([]);
+  const [bairros, setBairros] = useState([]);
+
   useEffect(() => {
     getAll(nome, cidade, bairro).then(setPessoas);
+
+    getAllCidades().then((cids) => {
+      setCidades(cids);
+    });
+
+    getAllBairros().then((bairros) => {
+      setBairros(bairros);
+    });
   }, []);
 
   return (
@@ -34,23 +45,23 @@ const Pessoas = () => {
           </div>
           <div className="inputLabel">
             <label htmlFor="cidade">Cidade</label>
-            <input
-              name="cidade"
-              type="text"
-              maxLength={120}
-              placeholder="Qualquer..."
-              defaultValue={cidade}
-            />
+            <select name="cidade">
+              {cidades.map((cid) => (
+                <option value={cid["nome"]} selected={cid["nome"] == cidade}>
+                  {cid["nome"]}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="inputLabel">
             <label htmlFor="bairro">Bairro</label>
-            <input
-              name="bairro"
-              type="text"
-              maxLength={120}
-              placeholder="Qualquer..."
-              defaultValue={bairro}
-            />
+            <select name="bairro">
+              {bairros.map((ba) => (
+                <option value={ba["nome"]} selected={ba["nome"] == bairro}>
+                  {ba["nome"]}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <div className="flex justify-between mb-5">

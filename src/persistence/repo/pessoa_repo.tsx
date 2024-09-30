@@ -13,12 +13,12 @@ export default class PessoaRepo {
       INNER JOIN cidade ON cidade.id = pessoa.id_cidade 
       INNER JOIN bairro ON bairro.id = pessoa.id_bairro
       WHERE pessoa.nome LIKE :nome
-      AND cidade.nome LIKE :cidade
-      AND bairro.nome LIKE :bairro`,
+      AND (:cidade = '' OR cidade.nome = :cidade)
+      AND (:bairro = '' OR bairro.nome = :bairro)`,
       {
         nome: `%${filters.nome}%`,
-        cidade: `%${filters.cidade_nome}%`,
-        bairro: `%${filters.bairro_nome}%`,
+        cidade: filters.cidade_nome,
+        bairro: filters.bairro_nome,
       }
     );
     connection.end();
