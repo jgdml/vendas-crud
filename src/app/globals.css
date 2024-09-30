@@ -46,7 +46,7 @@ body {
 }
 
 .inputLabel input {
-  -webkit-appearance: textfield;
+  appearance: textfield;
   outline: none;
 
   padding: 5px;
@@ -55,6 +55,14 @@ body {
   transition-duration: 0.25s;
   transition-property: border-color;
   padding: 1%;
+}
+
+.inputLabel select {
+  appearance: none;
+  background-color: transparent;
+  border: solid lightgray 1px;
+  border-radius: 5px;
+  height: 100%;
 }
 
 

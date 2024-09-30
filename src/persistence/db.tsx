@@ -12,5 +12,6 @@ export default async function GetConnection() {
     queueLimit: 0,
     enableKeepAlive: true,
     keepAliveInitialDelay: 0,
+    namedPlaceholders: true
   });
 }
