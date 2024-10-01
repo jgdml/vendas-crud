@@ -20,8 +20,19 @@
 }
 
 .displayTable tbody tr {
-  transition-property: opacity;
-  transition-duration: 0.25s;
+  animation-name: spawnAnim;
+  animation-duration: 0.25s;
+}
+
+@keyframes spawnAnim {
+  from {
+    opacity: 0;
+    transform: scaleY(0) translateY(-50%);
+  }
+  to {
+    transform: scaleY(1) translateY(0);
+    opacity: 1;
+  }
 }
 
 .iconButton {
