@@ -10,11 +10,12 @@ export default class VendaRepo {
   async findAll() {
     var connection = await GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
-      `SELECT venda.id, pessoa.nome AS pessoa_nome, DATE_FORMAT(data_venda, '%d/%m/%Y') AS data, SUM(venda_item.subtotal) AS total FROM venda 
-      INNER JOIN venda_item ON venda_item.id_venda = venda.id 
-      INNER JOIN pessoa ON pessoa.id = venda.id_pessoa
-      GROUP BY venda.id`
+      `SELECT venda.id, pessoa.nome AS pessoa_nome, DATE_FORMAT(data_venda, '%d/%m/%Y') AS data, 
+	    (SELECT SUM(venda_item.subtotal) from venda_item WHERE venda_item.id_venda = venda.id ) AS total 
+	    FROM venda 
+      INNER JOIN pessoa ON pessoa.id = venda.id_pessoa;`
     );
+    console.log(res[0]);
     connection.end();
     if (res[0].id == null) return [];
 
@@ -26,9 +27,11 @@ export default class VendaRepo {
   async findById(id: number) {
     var connection = await GetConnection();
     const [vendRes] = await connection.execute<RowDataPacket[]>(
-      `SELECT venda.id, DATE_FORMAT(data_venda, '%Y-%m-%d') AS data, SUM(venda_item.subtotal) AS total, pessoa.id AS pessoa FROM venda 
-      INNER JOIN venda_item ON venda_item.id_venda = venda.id 
+      `SELECT venda.id, DATE_FORMAT(data_venda, '%Y-%m-%d') AS data, pessoa.id AS pessoa,
+      (SELECT SUM(venda_item.subtotal) from venda_item WHERE venda_item.id_venda = venda.id ) AS total 
+      FROM venda 
       INNER JOIN pessoa ON pessoa.id = venda.id_pessoa
+      WHERE venda.id = ?
       `,
       [id]
     );
