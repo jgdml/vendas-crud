@@ -55,6 +55,7 @@ body {
   transition-duration: 0.25s;
   transition-property: border-color;
   padding: 1%;
+  height: 100%;
 }
 
 .inputLabel select {
@@ -65,7 +66,6 @@ body {
   height: 100%;
 }
 
-
 .inputLabel input:focus {
   border-color: var(--accent);
 }
@@ -73,4 +73,19 @@ body {
 .inputLabel label {
   font-weight: bold;
   color: rgb(80, 80, 80);
+}
+
+.totalPrice {
+  display: flex;
+  margin-top: 1%;
+  justify-content: space-between;
+  margin-bottom: 5%;
+}
+
+.totalPrice span {
+  background-color: var(--accent);
+  font-size: x-large;
+  padding: 5px;
+  border-radius: 5px;
+  color: white;
 }

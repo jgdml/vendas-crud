@@ -7,7 +7,7 @@ interface IconTextButtonProps {
   icon: string;
   text: string;
   href?: string;
-  onclick?: () => void;
+  onclick?: (event?: any) => void;
   isSubmit?: boolean;
 }
 

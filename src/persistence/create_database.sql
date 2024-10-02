@@ -37,7 +37,6 @@ CREATE TABLE pessoa (
 CREATE TABLE venda (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	id_pessoa INT NOT NULL,
-    total DECIMAL (8, 2) NOT NULL,
 	data_venda DATE,
 
 	CONSTRAINT FK_VEN_PES FOREIGN KEY (id_pessoa) REFERENCES pessoa(id)
@@ -51,7 +50,7 @@ CREATE TABLE venda_item(
 	valor DECIMAL (8, 2) NOT NULL,
 	subtotal DECIMAL (8, 2) NOT NULL,
 
-	CONSTRAINT FK_VI_VEN FOREIGN KEY (id_venda) REFERENCES venda(id),
+	CONSTRAINT FK_VI_VEN FOREIGN KEY (id_venda) REFERENCES venda(id) ON DELETE CASCADE,
 	CONSTRAINT FK_VI_PROD FOREIGN KEY (id_produto) REFERENCES produto(id),
 	CONSTRAINT PK_VENIT PRIMARY KEY (id_venda, id_produto)
 );

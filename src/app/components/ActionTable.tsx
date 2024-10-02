@@ -7,8 +7,10 @@ interface ActionTableProps {
   headers: string[];
   displayValues: string[];
   items: any[];
-  editLink: string;
-  deleteAction: (id?: any) => Promise<void>;
+  editLink?: string;
+  deleteAction?: (id?: any) => void;
+  returnIndex?: boolean;
+  keepElement?: boolean;
 }
 
 const ActionTable = (props: ActionTableProps) => {
@@ -16,7 +18,9 @@ const ActionTable = (props: ActionTableProps) => {
     <table className={styles.displayTable}>
       <thead>
         <tr>
-          {props.headers.map((h => <th>{h}</th>))}
+          {props.headers.map((h) => (
+            <th>{h}</th>
+          ))}
           <th>Ações</th>
         </tr>
       </thead>
@@ -28,22 +32,30 @@ const ActionTable = (props: ActionTableProps) => {
                 <td>{item[name]}</td>
               ))}
               <td>
-                <Link
-                  className={styles.iconButton}
-                  href={props.editLink + "?id=" + item["id"]}
-                >
-                  <i className="material-symbols-outlined">edit</i>
-                </Link>
+                {props.editLink != null ? (
+                  <Link
+                    className={styles.iconButton}
+                    href={props.editLink + "?id=" + item["id"]}
+                  >
+                    <i className="material-symbols-outlined">edit</i>
+                  </Link>
+                ) : null}
 
-                <button
-                  className={styles.iconButton}
-                  onClick={(e) => {
-                    props.deleteAction(props.items[index]["id"]);
-                    e.currentTarget.parentElement?.parentElement?.remove();
-                  }}
-                >
-                  <i className="material-symbols-outlined">delete</i>
-                </button>
+                {props.deleteAction != null ? (
+                  <button
+                    className={styles.iconButton}
+                    onClick={(e) => {
+                      if (!props.keepElement) {
+                        e.currentTarget.parentElement?.parentElement?.remove();
+                      }
+                      props.deleteAction!(
+                        props.returnIndex ? index : props.items[index]["id"]
+                      );
+                    }}
+                  >
+                    <i className="material-symbols-outlined">delete</i>
+                  </button>
+                ) : null}
               </td>
             </tr>
           );

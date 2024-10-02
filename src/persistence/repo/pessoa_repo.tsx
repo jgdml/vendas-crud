@@ -4,23 +4,33 @@ import Pessoa from "../../model/pessoa";
 import PessoaFilters from "@/dto/pessoa_filters";
 
 export default class PessoaRepo {
-  async findAll(filters: PessoaFilters) {
-    console.log(filters);
+  async findAll(filters?: PessoaFilters) {
     var connection = await GetConnection();
-    var [res] = await connection.execute<RowDataPacket[]>(
-      `SELECT pessoa.id, pessoa.nome, cidade.nome as nome_cidade, bairro.nome as nome_bairro, pessoa.telefone 
+    if (filters) {
+      console.log(filters);
+      var [res] = await connection.execute<RowDataPacket[]>(
+        `SELECT pessoa.id, pessoa.nome, cidade.nome as nome_cidade, bairro.nome as nome_bairro, pessoa.telefone 
       FROM pessoa 
       INNER JOIN cidade ON cidade.id = pessoa.id_cidade 
       INNER JOIN bairro ON bairro.id = pessoa.id_bairro
       WHERE pessoa.nome LIKE :nome
       AND (:cidade = '' OR cidade.nome = :cidade)
       AND (:bairro = '' OR bairro.nome = :bairro)`,
-      {
-        nome: `%${filters.nome}%`,
-        cidade: filters.cidade_nome,
-        bairro: filters.bairro_nome,
-      }
-    );
+        {
+          nome: `%${filters.nome}%`,
+          cidade: filters.cidade_nome,
+          bairro: filters.bairro_nome,
+        }
+      );
+    } else {
+      var [res] = await connection.execute<RowDataPacket[]>(
+        `SELECT pessoa.id, pessoa.nome, cidade.nome as nome_cidade, bairro.nome as nome_bairro, pessoa.telefone 
+      FROM pessoa 
+      INNER JOIN cidade ON cidade.id = pessoa.id_cidade 
+      INNER JOIN bairro ON bairro.id = pessoa.id_bairro
+      `);
+    }
+
     connection.end();
 
     return res.map((item) => {
