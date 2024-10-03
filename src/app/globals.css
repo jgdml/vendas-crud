@@ -45,13 +45,17 @@ body {
   flex: 1;
 }
 
-.inputLabel input,
+.inputLabel input[type],
 .inputLabel select {
+  box-sizing: border-box;
   border-radius: 5px;
   transition-duration: 0.25s;
   transition-property: border-color;
-  height: 100%;
+  
+  height: 3em;
   border: solid lightgray 1px;
+  padding: 3%;
+  padding-left: 5%;
 }
 
 .inputLabel input {
@@ -62,8 +66,6 @@ body {
 }
 
 .inputLabel select {
-  appearance: none;
-  -webkit-appearance: none;
   background-color: transparent;
 }
 

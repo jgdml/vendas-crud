@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Sidebar from "./components/Sidebar";
 
+import { Inter } from "next/font/google";
+
+const font = Inter({ subsets: ["latin"] });
+
 export const metadata: Metadata = {
   title: "Venda Crud",
 };
@@ -13,10 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body>
+      <body className={font.className}>
         <Sidebar />
         {children}
-        
       </body>
     </html>
   );

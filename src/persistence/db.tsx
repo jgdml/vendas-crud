@@ -7,6 +7,7 @@ export abstract class DB {
 
   public static async GetConnection() {
     if (!this.isCreated) {
+      console.log("try create database")
       const c = await this.GetFromPool();
 
       var ddl = await readFileSync(

@@ -17,7 +17,7 @@ const ActionTable = (props: ActionTableProps) => {
   return (
     <table className={styles.displayTable}>
       <thead>
-        <tr key={"table-headers"}>
+        <tr>
           {props.headers.map((h) => (
             <th key={"table-header-"+h}>{h}</th>
           ))}
@@ -29,9 +29,9 @@ const ActionTable = (props: ActionTableProps) => {
           return (
             <tr key={"table-row-"+index}>
               {props.displayValues.map((name) => (
-                <td>{item[name]}</td>
+                <td key={"table-item-"+name}>{item[name]}</td>
               ))}
-              <td>
+              <td >
                 {props.editLink != null ? (
                   <Link
                     className={styles.iconButton}
