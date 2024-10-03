@@ -1,10 +1,10 @@
-import GetConnection from "../db";
+import { DB }from "../db";
 import { RowDataPacket } from "mysql2/promise";
 import Cidade from "../../model/cidade";
 
 export default class CidadeRepo {
   async findAll() {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
       "SELECT * FROM `cidade`"
     );
@@ -15,7 +15,7 @@ export default class CidadeRepo {
     );
   }
   async findById(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
       "SELECT * FROM `cidade` WHERE id =?",
       [id]
@@ -26,7 +26,7 @@ export default class CidadeRepo {
   }
 
   async saveOrUpdate(cidade: Cidade) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
 
     var result;
     if (cidade.id == null) {
@@ -46,7 +46,7 @@ export default class CidadeRepo {
   }
 
   async delete(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     await connection.execute("DELETE FROM cidade WHERE id=?", [id]);
     connection.end();
   }

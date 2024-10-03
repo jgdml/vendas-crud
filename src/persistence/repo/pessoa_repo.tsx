@@ -1,11 +1,11 @@
-import GetConnection from "../db";
+import { DB }from "../db";
 import { RowDataPacket } from "mysql2/promise";
 import Pessoa from "../../model/pessoa";
 import PessoaFilters from "@/dto/pessoa_filters";
 
 export default class PessoaRepo {
   async findAll(filters?: PessoaFilters) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     if (filters) {
       console.log(filters);
       var [res] = await connection.execute<RowDataPacket[]>(
@@ -41,7 +41,7 @@ export default class PessoaRepo {
   }
 
   async findById(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
       "SELECT * FROM `pessoa` WHERE pessoa.id = ?",
       [id]
@@ -64,7 +64,7 @@ export default class PessoaRepo {
   }
 
   async saveOrUpdate(pessoa: Pessoa) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
 
     var result;
     if (pessoa.id == null) {
@@ -105,7 +105,7 @@ export default class PessoaRepo {
   }
 
   async delete(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     await connection.execute("DELETE FROM pessoa WHERE id=?", [id]);
     connection.end();
   }

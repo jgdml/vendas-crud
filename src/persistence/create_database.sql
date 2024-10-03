@@ -1,24 +1,24 @@
 CREATE DATABASE IF NOT EXISTS desafio_venda_db;
 USE desafio_venda_db;
 
-CREATE TABLE bairro (
+CREATE TABLE IF NOT EXISTS bairro (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(255)
 );
 
-CREATE TABLE cidade (
+CREATE TABLE IF NOT EXISTS cidade (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(255) NOT NULL,
     uf VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE produto (
+CREATE TABLE IF NOT EXISTS produto (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	nome VARCHAR(255) NOT NULL,
 	valor_venda DECIMAL (7, 2) NOT NULL
 );
 
-CREATE TABLE pessoa (
+CREATE TABLE IF NOT EXISTS pessoa (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	id_cidade INT NOT NULL,
     id_bairro INT NOT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE pessoa (
     CONSTRAINT FK_PES_BAI FOREIGN KEY (id_bairro) REFERENCES bairro(id)
 );
 
-CREATE TABLE venda (
+CREATE TABLE IF NOT EXISTS venda (
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	id_pessoa INT NOT NULL,
 	data_venda DATE,
@@ -43,7 +43,7 @@ CREATE TABLE venda (
 );
 
 
-CREATE TABLE venda_item(
+CREATE TABLE IF NOT EXISTS venda_item(
 	id_venda INT NOT NULL,
 	id_produto INT NOT NULL,
 	quantidade INT NOT NULL,

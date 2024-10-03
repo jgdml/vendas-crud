@@ -1,4 +1,4 @@
-import GetConnection from "../db";
+import { DB }from "../db";
 import { ResultSetHeader, RowDataPacket } from "mysql2/promise";
 import Venda from "../../model/venda";
 import VendaFilters from "@/dto/venda_filters";
@@ -8,7 +8,7 @@ import VendaItemView from "@/dto/venda_item_view";
 
 export default class VendaRepo {
   async findAll(filters?: VendaFilters) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
 
     if (filters) {
       var [res] = await connection.execute<RowDataPacket[]>(
@@ -44,7 +44,7 @@ export default class VendaRepo {
   }
 
   async findById(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     const [vendRes] = await connection.execute<RowDataPacket[]>(
       `SELECT venda.id, DATE_FORMAT(data_venda, '%Y-%m-%d') AS data, pessoa.id AS pessoa,
       (SELECT SUM(venda_item.subtotal) from venda_item WHERE venda_item.id_venda = venda.id ) AS total 
@@ -83,7 +83,7 @@ export default class VendaRepo {
   }
 
   async saveOrUpdate(venda: Venda, items: Array<VendaItem>) {
-    var connection = await (await GetConnection()).getConnection();
+    var connection = await (await DB.GetConnection()).getConnection();
 
     var result;
     connection.beginTransaction();
@@ -128,7 +128,7 @@ export default class VendaRepo {
   }
 
   async delete(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     await connection.execute("DELETE FROM venda WHERE id=?", [id]);
     connection.end();
   }

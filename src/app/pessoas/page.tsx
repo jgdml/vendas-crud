@@ -46,11 +46,9 @@ const Pessoas = () => {
           <div className="inputLabel">
             <label htmlFor="cidade">Cidade</label>
             <select name="cidade">
-              {cidade == "" ? (
-                <option selected disabled aria-invalid>
-                  Qualquer...
-                </option>
-              ) : null}
+              <option selected={cidade == ""} value={""}>
+                Qualquer...
+              </option>
               {cidades.map((cid) => (
                 <option value={cid["nome"]} selected={cid["nome"] == cidade}>
                   {cid["nome"]}
@@ -61,11 +59,9 @@ const Pessoas = () => {
           <div className="inputLabel">
             <label htmlFor="bairro">Bairro</label>
             <select name="bairro">
-              {bairro == "" ? (
-                <option selected disabled aria-invalid>
-                  Qualquer...
-                </option>
-              ) : null}
+              <option selected={bairro == ""} value={""}>
+                Qualquer...
+              </option>
               {bairros.map((ba) => (
                 <option value={ba["nome"]} selected={ba["nome"] == bairro}>
                   {ba["nome"]}

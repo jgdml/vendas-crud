@@ -44,11 +44,9 @@ const Vendas = () => {
           <div className="inputLabel">
             <label htmlFor="pessoa">Pessoa</label>
             <select name="pessoa">
-              {pessoa == "" ? (
-                <option selected disabled aria-invalid>
-                  Qualquer...
-                </option>
-              ) : null}
+              <option selected={pessoa == ""} value={""}>
+                Qualquer...
+              </option>
               {pessoas.map((pes) => (
                 <option value={pes["id"]} selected={pes["id"] == pessoa}>
                   {pes["nome"]}
@@ -57,11 +55,9 @@ const Vendas = () => {
             </select>
             <label htmlFor="produto">Produto</label>
             <select name="produto">
-              {produto == "" ? (
-                <option selected disabled aria-invalid>
-                  Qualquer...
-                </option>
-              ) : null}
+              <option selected={produto == ""} value={""}>
+                Qualquer...
+              </option>
               {produtos.map((prod) => (
                 <option value={prod["id"]} selected={prod["id"] == produto}>
                   {prod["nome"]}
@@ -71,7 +67,7 @@ const Vendas = () => {
           </div>
         </div>
         <div className="flex justify-between mb-5">
-          <IconTextButton text="Adicionar" icon="add" href="pessoas/form" />
+          <IconTextButton text="Adicionar" icon="add" href="vendas/form" />
           <IconTextButton isSubmit={true} text="Buscar" icon="search" />
         </div>
       </form>

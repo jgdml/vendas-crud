@@ -1,10 +1,10 @@
-import GetConnection from "../db";
+import { DB }from "../db";
 import { RowDataPacket } from "mysql2/promise";
 import Bairro from "../../model/bairro";
 
 export default class BairroRepo {
   async findAll() {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
       "SELECT * FROM `bairro`"
     );
@@ -15,7 +15,7 @@ export default class BairroRepo {
     );
   }
   async findById(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     var [res] = await connection.execute<RowDataPacket[]>(
       "SELECT * FROM `bairro` WHERE id =?",
       [id]
@@ -26,7 +26,7 @@ export default class BairroRepo {
   }
 
   async saveOrUpdate(bairro: Bairro) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
 
     var result;
     if (bairro.id == null) {
@@ -46,7 +46,7 @@ export default class BairroRepo {
   }
 
   async delete(id: number) {
-    var connection = await GetConnection();
+    var connection = await DB.GetConnection();
     await connection.execute("DELETE FROM bairro WHERE id=?", [id]);
     connection.end();
   }
