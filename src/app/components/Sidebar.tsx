@@ -12,7 +12,7 @@ const Sidebar = () => {
       </Link>
 
       <Link className={styles.sidebarLink} href="/produtos">
-        <span className="material-symbols-outlined">package</span>
+        <span className="material-symbols-outlined">package_2</span>
         Produtos
       </Link>
       <Link className={styles.sidebarLink} href="/vendas">

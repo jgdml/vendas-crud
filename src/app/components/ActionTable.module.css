@@ -15,7 +15,8 @@
 
 .displayTable th,
 .displayTable td {
-  padding: 3%;
+  padding: 2%;
+  width: 20%; 
   border-bottom: solid lightgray 1px;
 }
 

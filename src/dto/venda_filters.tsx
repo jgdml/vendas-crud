@@ -1,17 +1,12 @@
 export default class VendaFilters {
-  constructor(
-    periodoStart: string,
-    periodoEnd: string,
-    pessoa: number,
-    produto: number
-  ) {
-    this.periodoStart = periodoStart;
-    this.periodoEnd = periodoEnd;
+  constructor(inicio: string, fim: string, pessoa: string, produto: string) {
+    this.inicio = inicio;
+    this.fim = fim;
     this.pessoa = pessoa;
     this.produto = produto;
   }
-  periodoStart: string;
-  periodoEnd: string;
-  pessoa: number;
-  produto: number;
+  inicio: string;
+  fim: string;
+  pessoa: string;
+  produto: string;
 }

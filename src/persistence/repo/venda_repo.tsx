@@ -7,17 +7,36 @@ import VendaView from "@/dto/venda_view";
 import VendaItemView from "@/dto/venda_item_view";
 
 export default class VendaRepo {
-  async findAll() {
+  async findAll(filters?: VendaFilters) {
     var connection = await GetConnection();
-    var [res] = await connection.execute<RowDataPacket[]>(
-      `SELECT venda.id, pessoa.nome AS pessoa_nome, DATE_FORMAT(data_venda, '%d/%m/%Y') AS data, 
+
+    if (filters) {
+      var [res] = await connection.execute<RowDataPacket[]>(
+        `SELECT venda.id, pessoa.nome AS pessoa_nome, DATE_FORMAT(data_venda, '%d/%m/%Y') AS data, 
+        (SELECT SUM(venda_item.subtotal) from venda_item WHERE venda_item.id_venda = venda.id ) AS total 
+        FROM venda 
+        INNER JOIN pessoa ON pessoa.id = venda.id_pessoa
+        INNER JOIN venda_item ON venda_item.id_venda = venda.id
+        WHERE (:inicio='' OR :fim='' OR (venda.data_venda BETWEEN :inicio AND :fim))
+        AND (:id_pessoa = '' OR :id_pessoa = venda.id_pessoa)
+        AND (:id_produto = '' OR :id_produto = venda_item.id_produto)
+        GROUP BY venda.id`,
+        {
+          inicio: filters.inicio,
+          fim: filters.fim,
+          id_pessoa: filters.pessoa,
+          id_produto: filters.produto,
+        }
+      );
+    } else {
+      var [res] = await connection.execute<RowDataPacket[]>(
+        `SELECT venda.id, pessoa.nome AS pessoa_nome, DATE_FORMAT(data_venda, '%d/%m/%Y') AS data, 
 	    (SELECT SUM(venda_item.subtotal) from venda_item WHERE venda_item.id_venda = venda.id ) AS total 
 	    FROM venda 
       INNER JOIN pessoa ON pessoa.id = venda.id_pessoa;`
-    );
-    console.log(res[0]);
+      );
+    }
     connection.end();
-    if (res[0].id == null) return [];
 
     return res.map(
       (item) => new VendaView(item.id, item.total, item.data, item.pessoa_nome)

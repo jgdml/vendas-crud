@@ -60,6 +60,7 @@ body {
 
 .inputLabel select {
   appearance: none;
+  -webkit-appearance: none;
   background-color: transparent;
   border: solid lightgray 1px;
   border-radius: 5px;
