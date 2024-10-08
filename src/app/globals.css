@@ -8,6 +8,12 @@
   --accent: #d73253;
 }
 
+@media print{
+  .no-print, .no-print *{
+    display: none !important;
+  }
+}
+
 body {
   height: 100vh;
   display: flex;

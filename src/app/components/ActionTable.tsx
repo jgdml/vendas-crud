@@ -11,6 +11,7 @@ interface ActionTableProps {
   deleteAction?: (id?: any) => void;
   returnIndex?: boolean;
   keepElement?: boolean;
+  printLink?: string;
 }
 
 const ActionTable = (props: ActionTableProps) => {
@@ -19,19 +20,33 @@ const ActionTable = (props: ActionTableProps) => {
       <thead>
         <tr>
           {props.headers.map((h) => (
-            <th key={"table-header-"+h}>{h}</th>
+            <th key={"table-header-" + h}>{h}</th>
           ))}
-          <th>Ações</th>
+          {props.editLink != null ||
+          props.deleteAction != null ||
+          props.printLink != null ? (
+            <th>Ações</th>
+          ) : null}
         </tr>
       </thead>
       <tbody>
         {props.items.map((item, index) => {
           return (
-            <tr key={"table-row-"+index}>
+            <tr key={"table-row-" + index}>
               {props.displayValues.map((name) => (
-                <td key={"table-item-"+name}>{item[name]}</td>
+                <td key={"table-item-" + name}>{item[name]}</td>
               ))}
-              <td >
+
+              <td>
+                {props.printLink != null ? (
+                  <Link
+                    className={styles.iconButton}
+                    href={props.printLink + "?id=" + item["id"]}
+                    target="iframe-print"
+                  >
+                    <i className="material-symbols-outlined">print</i>
+                  </Link>
+                ) : null}
                 {props.editLink != null ? (
                   <Link
                     className={styles.iconButton}
@@ -40,7 +55,6 @@ const ActionTable = (props: ActionTableProps) => {
                     <i className="material-symbols-outlined">edit</i>
                   </Link>
                 ) : null}
-
                 {props.deleteAction != null ? (
                   <button
                     className={styles.iconButton}

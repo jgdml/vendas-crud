@@ -71,6 +71,7 @@ const Vendas = () => {
           <IconTextButton isSubmit={true} text="Buscar" icon="search" />
         </div>
       </form>
+      <iframe src="" name="iframe-print" hidden></iframe>
 
       <ActionTable
         headers={["Pessoa", "Total", "Data"]}
@@ -78,6 +79,7 @@ const Vendas = () => {
         items={vendas}
         editLink="vendas/form"
         deleteAction={deleteById}
+        printLink="vendas/print"
       />
     </Card>
   );

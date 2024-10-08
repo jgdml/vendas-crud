@@ -6,7 +6,7 @@ import "../globals.css";
 
 const Sidebar = () => {
   return (
-    <div className={styles.sidebar}>
+    <div className={styles.sidebar+" no-print"}>
       <Link className={styles.sidebarHome} href="/">
         <i className="material-symbols-outlined">storefront</i>
       </Link>

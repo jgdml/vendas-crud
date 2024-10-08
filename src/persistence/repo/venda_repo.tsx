@@ -46,7 +46,7 @@ export default class VendaRepo {
   async findById(id: number) {
     var connection = await DB.GetConnection();
     const [vendRes] = await connection.execute<RowDataPacket[]>(
-      `SELECT venda.id, DATE_FORMAT(data_venda, '%Y-%m-%d') AS data, pessoa.id AS pessoa,
+      `SELECT venda.id, DATE_FORMAT(data_venda, '%Y-%m-%d') AS data, pessoa.id AS pessoa, pessoa.nome AS pessoa_nome,
       (SELECT SUM(venda_item.subtotal) from venda_item WHERE venda_item.id_venda = venda.id ) AS total 
       FROM venda 
       INNER JOIN pessoa ON pessoa.id = venda.id_pessoa
@@ -67,7 +67,7 @@ export default class VendaRepo {
       venda.id,
       venda.total,
       venda.data,
-      "",
+      venda.pessoa_nome,
       venda.pessoa,
       items.map(
         (i) =>
